@@ -13,7 +13,7 @@ public class Bebida implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "tipo")
+    @Column(name = "tipo", unique = true)
     private String tipo;
 
     public Long getId() {

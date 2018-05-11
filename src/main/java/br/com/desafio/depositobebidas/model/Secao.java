@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,9 +18,12 @@ public class Secao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    private String nome;
     @OneToOne(cascade = CascadeType.ALL)
-    private Bebida bebida;
-    @Column(name = "volume")
+    @JoinColumn(name = "tipo_bebida_id")
+    private Bebida tipoBebida;
+    @Column(name = "volume", precision = 10, scale = 2)
     private Double volume;
 
     public Long getId() {
@@ -30,12 +34,20 @@ public class Secao implements Serializable {
         this.id = id;
     }
 
-    public Bebida getBebida() {
-        return bebida;
+    public String getNome() {
+        return nome;
     }
 
-    public void setBebidas(Bebida bebida) {
-        this.bebida = bebida;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Bebida getTipoBebida() {
+        return tipoBebida;
+    }
+
+    public void setTipoBebida(Bebida tipoBebida) {
+        this.tipoBebida = tipoBebida;
     }
 
     public Double getVolume() {
