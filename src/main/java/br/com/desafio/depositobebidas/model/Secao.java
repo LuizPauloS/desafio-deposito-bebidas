@@ -4,10 +4,10 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,9 +20,8 @@ public class Secao implements Serializable {
     private Long id;
     @Column
     private String nome;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipo_bebida_id")
-    private Bebida tipoBebida;
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Bebida bebida;
     @Column(name = "volume", precision = 10, scale = 2)
     private Double volume;
 
@@ -42,12 +41,12 @@ public class Secao implements Serializable {
         this.nome = nome;
     }
 
-    public Bebida getTipoBebida() {
-        return tipoBebida;
+    public Bebida getBebida() {
+        return bebida;
     }
 
-    public void setTipoBebida(Bebida tipoBebida) {
-        this.tipoBebida = tipoBebida;
+    public void setBebida(Bebida bebida) {
+        this.bebida = bebida;
     }
 
     public Double getVolume() {
