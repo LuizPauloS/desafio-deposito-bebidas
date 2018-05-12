@@ -5,10 +5,10 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,16 +21,14 @@ public class Registro implements Serializable {
     private Long id;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "horario")
-    private Date horarioRegistro;
-    @Column(name = "tipo_registro")
-    private String tipoRegistro;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipo_bebida_id")
-    private Bebida tipoBebida;
+    private Date horario;
+    @Column(name = "registro")
+    private String registro;
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Bebida bebida;
     @Column(name = "volume", precision = 10, scale = 2)
     private Double volume;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "secao_id")
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Secao secao;
     @Column(name = "responsavel")
     private String responsavel;
@@ -43,28 +41,28 @@ public class Registro implements Serializable {
         this.id = id;
     }
 
-    public Date getHorarioRegistro() {
-        return horarioRegistro;
+    public Date getHorario() {
+        return horario;
     }
 
-    public void setHorarioRegistro(Date horarioRegistro) {
-        this.horarioRegistro = horarioRegistro;
+    public void setHorario(Date horario) {
+        this.horario = horario;
     }
 
-    public String getTipoRegistro() {
-        return tipoRegistro;
+    public String getRegistro() {
+        return registro;
     }
 
-    public void setTipoRegistro(String tipoRegistro) {
-        this.tipoRegistro = tipoRegistro;
+    public void setRegistro(String registro) {
+        this.registro = registro;
     }
 
-    public Bebida getTipoBebida() {
-        return tipoBebida;
+    public Bebida getBebida() {
+        return bebida;
     }
 
-    public void setTipoBebida(Bebida tipoBebida) {
-        this.tipoBebida = tipoBebida;
+    public void setBebida(Bebida bebida) {
+        this.bebida = bebida;
     }
 
     public Double getVolume() {

@@ -10,11 +10,15 @@ import javax.persistence.Id;
 @Entity
 public class Bebida implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "tipo", unique = true)
     private String tipo;
+    @Column(name = "volume_maximo")
+    private Double volumeMaximo;
 
     public Long getId() {
         return id;
@@ -30,6 +34,14 @@ public class Bebida implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Double getVolumeMaximo() {
+        return volumeMaximo;
+    }
+
+    public void setVolumeMaximo(Double volumeMaximo) {
+        this.volumeMaximo = volumeMaximo;
     }
 
 }
