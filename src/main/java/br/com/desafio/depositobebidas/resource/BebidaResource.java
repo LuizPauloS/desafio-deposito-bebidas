@@ -1,7 +1,7 @@
 package br.com.desafio.depositobebidas.resource;
 
 import br.com.desafio.depositobebidas.model.Bebida;
-import br.com.desafio.depositobebidas.service.impl.BebidaServiceImpl;
+import br.com.desafio.depositobebidas.service.BebidaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BebidaResource {
 
     @Autowired
-    private BebidaServiceImpl bebidaServiceImpl;
+    private BebidaService bebidaService;
 
     @GetMapping
-    public ResponseEntity<List<Bebida>> getTiposBebida() {
-        List<Bebida> bebidas = this.bebidaServiceImpl.buscaTiposDeBebidas();
+    public ResponseEntity<List<Bebida>> getAllTiposDeBebidas() {
+        List<Bebida> bebidas = this.bebidaService.buscaTiposDeBebidas();
         if (bebidas != null && !bebidas.isEmpty()) {
             return new ResponseEntity<>(bebidas, HttpStatus.OK);
         } else {
@@ -32,7 +32,7 @@ public class BebidaResource {
     @PostMapping(value = "/cadastro-bebida")
     public ResponseEntity<Bebida> addTipoDeBebida(@RequestBody Bebida bebida) {
         if (bebida != null) {
-            Bebida b = this.bebidaServiceImpl.adicionarTipoBebida(bebida);
+            Bebida b = this.bebidaService.adicionaTipoBebida(bebida);
             return bebida == b ? ResponseEntity.status(201).body(bebida) : ResponseEntity.ok(b);
         }
         return ResponseEntity.noContent().build();
