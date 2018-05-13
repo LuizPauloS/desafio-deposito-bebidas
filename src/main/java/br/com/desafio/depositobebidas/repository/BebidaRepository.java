@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BebidaRepository extends JpaRepository<Bebida, Long>{
     
-    Bebida findByTipo(String tipo);
+    Bebida findBebidaById(Long id);
+    
+    Bebida findBebidaByTipo(String tipo);
 }
