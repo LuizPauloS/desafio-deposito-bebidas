@@ -22,16 +22,21 @@ public class BebidaService {
     }
 
     public Bebida adicionaTipoBebida(Bebida bebida) {
-        Bebida b = this.bebidaRepository.findByTipo(bebida.getTipo());
-        String tipoUpper = "";
+        Bebida b = this.bebidaRepository.findBebidaByTipo(bebida.getTipo());
+        String tipo = "";
         if (b == null) {
-            tipoUpper = bebida.getTipo().toUpperCase();
-            if (TipoBebida.ALCOOLICAS.getTipoBebida().equals(tipoUpper)) {
-                bebida.setVolumeMaximo(500D);
-            } else if (TipoBebida.NAO_ALCOOLICAS.getTipoBebida().equals(tipoUpper)) {
-                bebida.setVolumeMaximo(400D);
+            if (bebida.getVolumeMaximo() == null) {
+                tipo = bebida.getTipo().toUpperCase();
+                if (TipoBebida.ALCOOLICAS.getTipoBebida().equals(tipo)) {
+                    bebida.setVolumeMaximo(500D);
+                } else if (TipoBebida.NAO_ALCOOLICAS.getTipoBebida().equals(tipo)) {
+                    bebida.setVolumeMaximo(400D);
+                } else {
+                    bebida.setVolumeMaximo(0D);
+                }
+                return this.bebidaRepository.save(bebida);
             }
-            return bebidaRepository.save(bebida);
+            return this.bebidaRepository.save(bebida);
         }
         return b;
     }

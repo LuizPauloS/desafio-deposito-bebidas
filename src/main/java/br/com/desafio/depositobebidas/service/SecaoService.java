@@ -21,7 +21,7 @@ public class SecaoService {
     }
 
     public Secao adicionaSecao(Secao secao) {
-        Secao s = this.secaoRepository.findByNome(secao.getNome());
+        Secao s = this.secaoRepository.findSecaoByNome(secao.getNome());
         if (s == null) {
             if (secao.getVolume() == null) {
                 secao.setVolume(0D);
