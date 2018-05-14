@@ -28,7 +28,7 @@ public class SecaoResource {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping(value = "/cadastro-secao")
+    @PostMapping(value = "/cadastro")
     public ResponseEntity<Secao> addSecaoEstoque(@RequestBody Secao secao) {
         if (secao != null) {
             Secao s = this.secaoService.adicionaSecao(secao);

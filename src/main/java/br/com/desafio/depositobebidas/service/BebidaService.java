@@ -22,7 +22,7 @@ public class BebidaService {
     }
 
     public Bebida adicionaTipoBebida(Bebida bebida) {
-        Bebida b = this.bebidaRepository.findBebidaByTipo(bebida.getTipo());
+        Bebida b = this.bebidaRepository.findBebidaById(bebida.getId());
         String tipo = "";
         if (b == null) {
             if (bebida.getVolumeMaximo() == null) {
