@@ -62,7 +62,7 @@ aplicação irá subir em um tomcat embedded.
 
 Configuração da porta da api se encontra no application.properties:
 		
-		server.port:9000
+	server.port:9000
 		
 Pronto, a aplicação deve estar online na porta 9000.
 
@@ -77,6 +77,9 @@ Após iniciar aplicação a documentação gerada com Swagger estará disponíve
 Api possui como banco de dados o HSQLDB em memória, no pom.xml existe a dependência do mesmo e as configurações se encontram no application.properties no caminho:
 
 	#!/deposito-bebidas/src/main/resources/application.properties
+
+Configuração banco de dados api:
+	
 	spring.datasource.driver-class-name=org.hsqldb.jdbcDriver
 	spring.datasource.url=jdbc:hsqldb:mem:.
 	spring.datasource.username=dbhsql
