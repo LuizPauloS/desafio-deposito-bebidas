@@ -2,13 +2,13 @@
 
 ## `Proposta:`
 
-A proposta do desafio e a criacao de uma API RESTful, para gerir dados de armazenamento e estoque de um deposito de bebidas. Atualmente o estoque armazena dois tipos de bebidas (alcoólicas e não alcoólicas), contudo, isto pode mudar no futuro.
-O estoque possui 5 seções e cada seção so pode armazenar um tipo de bebida, isto é, não é possivel armazenar ou manter bebidas alcoólicas e não alcoólicas juntas.
+A proposta do desafio e a criação de uma API RESTful, para gerir dados de armazenamento e estoque de um depósito de bebidas. Atualmente o estoque armazena dois tipos de bebidas (alcoólicas e não alcoólicas), contudo, isto pode mudar no futuro.
+O estoque possui 5 seções e cada seção só pode armazenar um tipo de bebida, isto é, não é possivel armazenar ou manter bebidas alcoólicas e não alcoólicas juntas.
 Cada seção possui capacidade de armazenamento de 500 litros de bebidas alcoólicas e 400 de não alcoólicas.
 
 ### `Responsabilidades API`
 
-#### `API deverá ser responsável por gerenciar:`
+`API deverá ser responsável por gerenciar:`
 
 - Cadastro e consulta das bebidas armazenadas em cada secao com suas respectivas queries.
 - Consulta do volume total no estoque por cada tipo de bebida.
@@ -19,7 +19,7 @@ Cada seção possui capacidade de armazenamento de 500 litros de bebidas alcoól
 
 ### `Regras API` 
 
-#### `Regras para fluxo de cadastro e cálculo:`
+`Regras para fluxo de cadastro e cálculo:`
 
 - Uma seção não pode ter dois ou mais tipos diferentes de bebidas (como ja fora dito).
 - Não há entrada ou saída de estoque sem respectivo registro no histórico.
