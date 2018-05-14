@@ -1,12 +1,14 @@
 # deposito-bebidas
 
-## `O Problema:`
+## `Proposta:`
 
 A proposta do desafio e a criacao de uma API RESTful, para gerir dados de armazenamento e estoque de um deposito de bebidas. Atualmente o estoque armazena dois tipos de bebidas (alcoólicas e não alcoólicas), contudo, isto pode mudar no futuro.
 O estoque possui 5 seções e cada seção so pode armazenar um tipo de bebida, isto é, não é possivel armazenar ou manter bebidas alcoólicas e não alcoólicas juntas.
 Cada seção possui capacidade de armazenamento de 500 litros de bebidas alcoólicas e 400 de não alcoólicas.
 
-### `O Problema:`A API deve ser responsavel por gerenciar:
+### `Responsabilidades API`
+
+#### `API deverá ser responsável por gerenciar:`
 
 - Cadastro e consulta das bebidas armazenadas em cada secao com suas respectivas queries.
 - Consulta do volume total no estoque por cada tipo de bebida.
@@ -15,7 +17,9 @@ Cada seção possui capacidade de armazenamento de 500 litros de bebidas alcoól
 - Cadastro de historico de entrada e saida de bebidas em caso de venda e recebimento.
 - Consulta do historico de entradas e saidas por tipo de bebida e secao.
 
-### `O Problema:` As seguintes regras devem ser respeitadas no fluxo de cadastro e cálculo:
+### `Regras API` 
+
+#### `Regras para fluxo de cadastro e cálculo:`
 
 - Uma seção não pode ter dois ou mais tipos diferentes de bebidas (como ja fora dito).
 - Não há entrada ou saída de estoque sem respectivo registro no histórico.
@@ -57,3 +61,9 @@ aplicação irá subir em um tomcat embedded.
     $ java -jar deposito-bebidas-0.0.1-SNAPSHOT.jar
 
 Pronto, a aplicação deve estar online na porta 9000.
+
+## `Documentação API`
+
+Após iniciar aplicação a documentação gerada com Swagger estará disponível automaticamente no endereço:
+
+	http://localhost:9000/swagger-ui.html
