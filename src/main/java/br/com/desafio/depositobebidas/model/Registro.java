@@ -1,5 +1,6 @@
 package br.com.desafio.depositobebidas.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -18,18 +19,25 @@ public class Registro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "ID do registro")
     private Long id;
+    @ApiModelProperty(notes = "Horário do registro")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "horario")
     private Date horario;
+    @ApiModelProperty(notes = "Tipo do registro(Entrada ou Saída)")
     @Column(name = "registro")
     private String registro;
+    @ApiModelProperty(notes = "ID do tipo da bebida relacionada ao registro")
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Bebida bebida;
+    @ApiModelProperty(notes = "Volume registro")
     @Column(name = "volume", precision = 10, scale = 2)
     private Double volume;
+    @ApiModelProperty(notes = "ID da seção relacionada ao registro")
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Secao secao;
+    @ApiModelProperty(notes = "Nome da seção")
     @Column(name = "responsavel")
     private String responsavel;
 

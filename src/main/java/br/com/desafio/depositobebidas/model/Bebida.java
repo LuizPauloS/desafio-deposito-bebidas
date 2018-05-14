@@ -1,5 +1,6 @@
 package br.com.desafio.depositobebidas.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +15,12 @@ public class Bebida implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "ID do tipo de bebida")
     private Long id;
-    @Column(name = "tipo", unique = true)
+    @ApiModelProperty(notes = "Nome do tipo de bebida", required = true)
+    @Column(name = "tipo", unique = true, nullable = false)
     private String tipo;
+    @ApiModelProperty(notes = "Volume máximo que o tipo pode ter em estoque")
     @Column(name = "volume_maximo")
     private Double volumeMaximo;
 

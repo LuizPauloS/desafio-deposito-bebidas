@@ -1,5 +1,6 @@
 package br.com.desafio.depositobebidas.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,11 +18,15 @@ public class Secao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "ID da seção")
     private Long id;
-    @Column
+    @Column(nullable = false)
+    @ApiModelProperty(notes = "Nome da seção", required = true)
     private String nome;
+    @ApiModelProperty(notes = "Tipo de bebida registrada atualmente na seção")
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Bebida bebida;
+    @ApiModelProperty(notes = "Volume registrado atualmente na seção")
     @Column(name = "volume", precision = 10, scale = 2)
     private Double volume;
 
