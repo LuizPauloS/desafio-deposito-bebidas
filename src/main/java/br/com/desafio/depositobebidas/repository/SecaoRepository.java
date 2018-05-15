@@ -18,6 +18,6 @@ public interface SecaoRepository extends JpaRepository<Secao, Long> {
     @Query("SELECT SUM(volume) FROM Secao WHERE bebida_id = ?1")
     Double findVolumeTotalEstoqueByTipoBebida(@Param("id") Long id);
 
-    @Query("SELECT s FROM Secao s WHERE bebida_id IS NULL OR volume = 0")
-    List<Secao> findSecoesDisponiveis();
+    @Query("SELECT s FROM Secao s WHERE bebida_id IS NOT NULL OR volume != 0")
+    List<Secao> findSecoesDisponiveisVenda();
 }

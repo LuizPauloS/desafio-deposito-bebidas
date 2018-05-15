@@ -67,7 +67,7 @@ public class EstoqueService {
         if (bebida.getVolumeMaximo() > volumeAtualSecao) {// enquanto é maior pode receber bebidas
             Double volumeRestanteSecao = bebida.getVolumeMaximo() - volumeAtualSecao;// agora sei quanto volume ainda posso add
             if (volumeRestanteSecao >= estoque.getVolume()) { //se o volume restante for maior ou igual é porque cabe na secao
-                estoque.setVolume(volumeAtualSecao + estoque.getVolume());
+                secao.setVolume(volumeAtualSecao + estoque.getVolume());
                 alteraVolumeSecaoERegistra(secao, estoque, bebida, TipoRegistro.ENTRADA, estoque.getVolume());
                 return "Bebida adicionada ao estoque com sucesso!";
             }
@@ -85,11 +85,11 @@ public class EstoqueService {
             Double volumeAtualSecao = secao.getVolume(); // recupera volume atual da secao para calculos
             if (bebida.getTipo().equals(secao.getBebida().getTipo()) && volumeAtualSecao != 0) { //só pode retirar se for do mesmo tipo
                 if (volumeAtualSecao >= estoque.getVolume()) {// enquanto é maior ou igual pode retirar bebidas
-                    estoque.setVolume(volumeAtualSecao - estoque.getVolume());
+                    secao.setVolume(volumeAtualSecao - estoque.getVolume());
                     alteraVolumeSecaoERegistra(secao, estoque, bebida, TipoRegistro.SAIDA, estoque.getVolume());
                     return "Bebida retirada do estoque com sucesso!";
                 }
-                return "Não é possível retirar " + estoque.getVolume() + " litros desta seção pois atualmente esta seção"
+                return "Não é possível retirar " + estoque.getVolume()+ " litros desta seção pois atualmente esta seção"
                         + " contém " + volumeAtualSecao + " litros em estoque!";
             }
             return "Você não pode retirar bebidas " + bebida.getTipo() + " desta seção. Esta seção possui bebidas "
@@ -100,7 +100,6 @@ public class EstoqueService {
 
     private void alteraVolumeSecaoERegistra(Secao secao, Estoque estoque, Bebida bebida, TipoRegistro tipoRegistro, double volume) {
         secao.setBebida(bebida);
-        secao.setVolume(estoque.getVolume());
         Secao s = this.secaoRepository.save(secao);
         if (s != null) {//preencher historico de registros
             preencheRegistro(estoque, bebida, secao, new Date(), tipoRegistro, volume);
@@ -132,6 +131,25 @@ public class EstoqueService {
         }
         return secoesDisponiveis;
     }
+    
+    public List<Secao> getSecoesDisponiveisVendaPorTipoBebidaEVolume(Long tipoBebida, Double volumeRequisicao) {
+        Bebida bebida = this.recuperaBebidaPeloId(tipoBebida);
+        List<Secao> secoesDisponiveis = new ArrayList<>();
+        if (bebida != null) {
+            List<Secao> secoesComTipoBebida = this.secaoRepository.findSecoesDisponiveisVenda();
+            if (!secoesComTipoBebida.isEmpty()) {
+                for (Secao secao : secoesComTipoBebida) {
+                    double volumeAtual = secao.getVolume();
+                    double volumeAtualizado = volumeAtual - volumeRequisicao;
+                    if (volumeAtualizado >= 0 && secao.getBebida().getId() == bebida.getId()) {//verifica se o volume atual é maior ou igual a zero 
+                        //e se o tipo de bebida é o mesmo
+                        secoesDisponiveis.add(secao);
+                    }
+                }
+            }
+        }
+        return secoesDisponiveis;
+    }
 
     private void preencheRegistro(Estoque estoque, Bebida bebida, Secao secao,
             Date dataDoRegistro, TipoRegistro tipoRegistro, double volume) {
@@ -145,10 +163,6 @@ public class EstoqueService {
             registro.setHorario(dataDoRegistro);
             this.registroRepository.save(registro);
         }
-    }
-
-    public List<Secao> getSecoesDisponiveis() {
-        return this.secaoRepository.findSecoesDisponiveis();
     }
 
     public String getVolumeTotalBebidasEstoque(Long bebidaId) {

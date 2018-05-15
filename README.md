@@ -43,10 +43,10 @@ Tecnologias utilizadas :
 
 Requisitos
 
-Maven
-Java 8
+- Maven
+- Java 8
 
-Gerando o Pacote
+### Gerando o Pacote
 
 Sendo um projeto Maven, execute os goals clean e install na raiz do projeto para baixar as dependências e gerar jar do projeto.
 
@@ -101,6 +101,20 @@ Saída esperada: `201 Created`
 	  "volumeMaximo": 500
 	}
 
+Recupera tipos de bebidas:
+
+	curl --request GET http://localhost:9000/bebidas
+
+Saída esperada:
+
+	[
+      {
+       "id": 1,
+       "tipo": "Alcoólicas",
+       "volumeMaximo": 500
+      }
+	]
+
 Inserção de nova seção:
 
 	curl --request POST http://localhost:9000/secoes/cadastro
@@ -115,8 +129,23 @@ Saída esperada: `201 Created`
 	  "bebida": null,
 	  "volume": 0
 	}
+
+Recupera seções:
+
+	curl --request GET http://localhost:9000/secoes
+
+Saída esperada:
+
+	[
+      {
+        "id": 1,
+        "nome": "A",
+        "bebida": null,
+        "volume": 0
+      }
+	]
 	
-Inserção de entrada de bebidas em uma seção:
+Inserção entrada de bebidas em uma seção:
 
 	curl --request POST http://localhost:9000/estoque/entrada
 	--header 'Content-Type: application/json'
@@ -125,8 +154,16 @@ Inserção de entrada de bebidas em uma seção:
 Saída esperada: `200 OK`
 	
 	Bebida adicionada ao estoque com sucesso!
+
+Recupera total de volume em estoque por tipo de bebida:
+
+	curl --request GET http://localhost:9000/estoque/total/1
+
+Saída esperada: `200 OK`
 	
-Inserção de saída de bebidas em uma seção:
+	Estoque possui volume total de 0 litros de bebidas Alcoólicas!
+	
+Inserção saída de bebidas em uma seção:
 
 	curl --request PUT http://localhost:9000/estoque/saida
 	--header 'Content-Type: application/json'
@@ -136,3 +173,40 @@ Saída esperada: `200 OK`
 	
 	Bebida retirada do estoque com sucesso!
 	
+Consulta seções que possuem volume e tipo de bebida informado como parametros para armazenamento:
+
+	curl --request GET http://localhost:9000/estoque/disponiveis/entrada/1/10
+
+Saída esperada: `200 OK`
+	
+	[
+      {
+        "id": 1,
+        "nome": "A",
+        "bebida": {
+            "id": 1,
+            "tipo": "Alcoólicas",
+            "volumeMaximo": 500
+        },
+        "volume": 490
+      }
+	]		
+
+Consulta seções que possuem volume e tipo de bebida informado como parametros para venda:
+
+	curl --request GET http://localhost:9000/estoque/disponiveis/saida/1/10
+
+Saída esperada: `200 OK`
+	
+	[
+      {
+        "id": 1,
+        "nome": "A",
+        "bebida": {
+            "id": 1,
+            "tipo": "Alcoólicas",
+            "volumeMaximo": 500
+        },
+        "volume": 490
+      }
+	]	

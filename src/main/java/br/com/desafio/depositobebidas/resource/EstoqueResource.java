@@ -57,22 +57,27 @@ public class EstoqueResource {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping(value = "/disponiveis")
-    @ApiOperation(value = "Recurso para listar todas as seções com disponibilidade para receber entrada de bebidas.", response = Secao.class,
+    @GetMapping(value = "/disponiveis/saida/{idBebida}/{volume}")
+    @ApiOperation(value = "Recurso para listar todas as seções com disponibilidade para "
+            + "vender determinados tipos de bebidas.", response = Secao.class,
             responseContainer = "List")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Retorna a lista de seções totalmente disponíveis."),
+        @ApiResponse(code = 200, message = "Retorna a lista de seções que contém a volume "
+                + "informado para venda de determinado tipo de bebida."),
         @ApiResponse(code = 204, message = "Sem conteúdo para retornar!")})
-    public ResponseEntity<List<Secao>> getSecoesDisponiveisPorTipoBebida() {
-        List<Secao> secoesDisponiveis = this.estoqueService.getSecoesDisponiveis();
-        if (!secoesDisponiveis.isEmpty()) {
-            return new ResponseEntity<>(secoesDisponiveis, HttpStatus.OK);
+    public ResponseEntity<List<Secao>> getSecoesDisponiveisVendaPorTipoBebidaEVolume(
+            @PathVariable("idBebida") Long idBebida,
+            @PathVariable("volume") Double volume) {
+        List<Secao> secoesDisponiveisSaida = this.estoqueService.getSecoesDisponiveisVendaPorTipoBebidaEVolume(idBebida, volume);
+        if (!secoesDisponiveisSaida.isEmpty()) {
+            return new ResponseEntity<>(secoesDisponiveisSaida, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/disponiveis/{idBebida}/{volume}")
-    @ApiOperation(value = "Recurso para listar todas as seções com tipo de bebida e volume informado como parâmetros.", response = Secao.class,
+    @GetMapping(value = "/disponiveis/entrada/{idBebida}/{volume}")
+    @ApiOperation(value = "Recurso para listar todas as seções com tipo de bebida e "
+            + "volume informado como parâmetros.", response = Secao.class,
             responseContainer = "List")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Retorna a lista de seções que podem armazenar tipo e volume informado."),
@@ -80,9 +85,9 @@ public class EstoqueResource {
     public ResponseEntity<List<Secao>> getSecoesDisponiveisArmazenamentoPorTipoBebidaEVolume(
             @PathVariable("idBebida") Long idBebida,
             @PathVariable("volume") Double volume) {
-        List<Secao> secoesDisponiveisPorBebida = estoqueService.getSecoesDisponiveisPorTipoBebidaEVolume(idBebida, volume);
-        if (!secoesDisponiveisPorBebida.isEmpty()) {
-            return new ResponseEntity<>(secoesDisponiveisPorBebida, HttpStatus.OK);
+        List<Secao> secoesDisponiveisEntrada = estoqueService.getSecoesDisponiveisPorTipoBebidaEVolume(idBebida, volume);
+        if (!secoesDisponiveisEntrada.isEmpty()) {
+            return new ResponseEntity<>(secoesDisponiveisEntrada, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -93,7 +98,7 @@ public class EstoqueResource {
         @ApiResponse(code = 200, message = "Retorna mensagem informando entrada no estoque."),
         @ApiResponse(code = 422, message = "Bebida não adicionada ao estoque! Verifique se está informando corretamente os dados do estoque.")})
     public ResponseEntity<String> addBebidasEstoque(@RequestBody Estoque estoque) {
-        if (!"".equals(estoque.getIdBebida()) && estoque.getVolume() != null
+        if (!"".equals(estoque.getIdBebida()) && estoque.getVolume()!= null
                 && !"".equals(estoque.getResponsavel())) {
             String retornoAddEstoque = this.estoqueService.adicionaBebidasEstoque(estoque);
             return ResponseEntity.ok(retornoAddEstoque);
@@ -108,7 +113,7 @@ public class EstoqueResource {
         @ApiResponse(code = 200, message = "Retorna mensagem informando saída do estoque."),
         @ApiResponse(code = 422, message = "Bebida não pode ser retirada do estoque!")})
     public ResponseEntity<String> retiraBebidasEstoque(@RequestBody Estoque estoque) {
-        if (!"".equals(estoque.getTipoBebida()) && estoque.getVolume() != null
+        if (!"".equals(estoque.getTipoBebida()) && estoque.getVolume()!= null
                 && !"".equals(estoque.getResponsavel())) {
             String retornoRetiraBebidaEstoque = this.estoqueService.retiraBebidasEstoque(estoque);
             return ResponseEntity.ok(retornoRetiraBebidaEstoque);
