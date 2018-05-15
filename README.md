@@ -87,7 +87,7 @@ Configuração banco de dados api:
 	
 ## `Exemplos:`
 
-Inserir tipos de bebidas do desafio:
+Inserção tipo de bebida:
 
 	curl --request POST http://localhost:9000/bebidas/cadastro
 	--header 'Content-Type: application/json' 
@@ -100,3 +100,39 @@ Saída esperada: `201 Created`
 	  "tipo": "Alcoólicas",
 	  "volumeMaximo": 500
 	}
+
+Inserção de nova seção:
+
+	curl --request POST http://localhost:9000/secoes/cadastro
+	--header 'Content-Type: application/json'
+	--data '{\n"nome": "A"\n}'
+    
+Saída esperada: `201 Created`
+	
+	{
+	  "id": 1,
+	  "nome": "A",
+	  "bebida": null,
+	  "volume": 0
+	}
+	
+Inserção de entrada de bebidas em uma seção:
+
+	curl --request POST http://localhost:9000/estoque/entrada
+	--header 'Content-Type: application/json'
+	--data '{\n"idBebida": 1,\n"idSecao": 1,\n"volume": 500,\n"responsavel": "Luiz"\n}'
+  
+Saída esperada: `200 OK`
+	
+	Bebida adicionada ao estoque com sucesso!
+	
+Inserção de saída de bebidas em uma seção:
+
+	curl --request PUT http://localhost:9000/estoque/saida
+	--header 'Content-Type: application/json'
+	--data '{\n"idBebida": 1,\n"idSecao": 1,\n"volume": 75,\n"responsavel": "Luiz"\n}'
+
+Saída esperada: `200 OK`
+	
+	Bebida retirada do estoque com sucesso!
+	
