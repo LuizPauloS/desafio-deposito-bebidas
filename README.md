@@ -84,3 +84,19 @@ Configuração banco de dados api:
 	spring.datasource.url=jdbc:hsqldb:mem:.
 	spring.datasource.username=dbhsql
 	spring.datasource.password=dbhsql
+	
+## `Exemplos:`
+
+Inserir tipos de bebidas do desafio:
+
+	curl --request POST \
+	--url http://localhost:9000/bebidas/cadastro \
+	--header 'Content-Type: application/json' \
+	--data '{\n    "tipo": "Não Alcoólicas"\n}'
+    
+Saída esperada: `201 Created`
+	{
+		"id": 1,
+		"tipo": "Alcoólicas",
+		"volumeMaximo": 500
+	}
