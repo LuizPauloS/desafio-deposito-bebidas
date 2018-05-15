@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Registro implements Serializable {
@@ -22,9 +23,10 @@ public class Registro implements Serializable {
     @ApiModelProperty(notes = "ID do registro")
     private Long id;
     @ApiModelProperty(notes = "Horário do registro")
+    @DateTimeFormat(pattern = "dd/mm/yyyy")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "horario")
-    private Date horario;
+    private Date data;
     @ApiModelProperty(notes = "Tipo do registro(Entrada ou Saída)")
     @Column(name = "registro")
     private String registro;
@@ -49,12 +51,12 @@ public class Registro implements Serializable {
         this.id = id;
     }
 
-    public Date getHorario() {
-        return horario;
+    public Date getData() {
+        return data;
     }
 
-    public void setHorario(Date horario) {
-        this.horario = horario;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public String getRegistro() {

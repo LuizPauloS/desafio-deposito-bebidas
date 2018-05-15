@@ -160,7 +160,7 @@ public class EstoqueService {
             registro.setRegistro(tipoRegistro.getTipoRegistro());
             registro.setResponsavel(estoque.getResponsavel());
             registro.setVolume(volume);
-            registro.setHorario(dataDoRegistro);
+            registro.setData(dataDoRegistro);
             this.registroRepository.save(registro);
         }
     }
