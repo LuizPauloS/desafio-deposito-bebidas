@@ -89,14 +89,14 @@ Configuração banco de dados api:
 
 Inserir tipos de bebidas do desafio:
 
-	curl --request POST \
-	--url http://localhost:9000/bebidas/cadastro \
-	--header 'Content-Type: application/json' \
-	--data '{\n    "tipo": "Não Alcoólicas"\n}'
+	curl --request POST	--url http://localhost:9000/bebidas/cadastro
+	--header 'Content-Type: application/json' 
+	--data '{\n"tipo": "Alcoólicas"\n}'
     
 Saída esperada: `201 Created`
+	
 	{
-		"id": 1,
-		"tipo": "Alcoólicas",
-		"volumeMaximo": 500
+	  "id": 1,
+	  "tipo": "Alcoólicas",
+	  "volumeMaximo": 500
 	}
